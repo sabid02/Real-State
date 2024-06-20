@@ -5,6 +5,7 @@ import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
 import { useSelector } from "react-redux";
 import "swiper/css/bundle";
+import Contact from "../components/Contact";
 import {
   FaBath,
   FaBed,
@@ -111,7 +112,7 @@ const Listing = () => {
               <span className="font-semibold text-black">Description - </span>
               {listing.description}
             </p>
-            <ul className="text-green-900 font-semibold text-sm flex items-center gap-4 sm:gap-6">
+            <ul className="text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6">
               <li className="flex items-center gap-1 whitespace-nowrap ">
                 <FaBed className="text-lg" />
                 {listing.bedrooms > 1
@@ -124,7 +125,25 @@ const Listing = () => {
                   ? `${listing.bathrooms} baths `
                   : `${listing.bathrooms} bath`}
               </li>
+              <li className="flex items-center gap-1 whitespace-nowrap ">
+                <FaParking className="text-lg" />
+
+                {listing.parking ? "parking spot" : "No parking"}
+              </li>
+              <li className="flex items-center gap-1 whitespace-nowrap ">
+                <FaChair className="text-lg" />
+                {listing.furnished ? "Furnished" : "unfurnished"}
+              </li>
             </ul>
+            {currentUser && listing.userRef !== currentUser._id && !contact && (
+              <button
+                onClick={() => setContact(true)}
+                className="bg-slate-700 p-3 text-white rounded-lg uppercase hover:opacity-90"
+              >
+                Contact Landlord
+              </button>
+            )}
+            {contact && <Contact listing={listing} />}
           </div>
         </div>
       )}
