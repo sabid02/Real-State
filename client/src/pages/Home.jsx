@@ -16,7 +16,7 @@ function Home() {
   useEffect(() => {
     const fetchOfferListings = async () => {
       try {
-        const res = await fetch("/server/listing/get?offer=true&limit=4");
+        const res = await fetch("/server/listing/get?offer=true&limit=3");
         const data = await res.json();
         setOfferListings(data);
         fetchRentListings();
@@ -26,7 +26,7 @@ function Home() {
     };
     const fetchRentListings = async () => {
       try {
-        const res = await fetch("/server/listing/get?type=rent&limit=4");
+        const res = await fetch("/server/listing/get?type=rent&limit=3");
         const data = await res.json();
         setRentListings(data);
         fetchSaleListings();
@@ -37,7 +37,7 @@ function Home() {
 
     const fetchSaleListings = async () => {
       try {
-        const res = await fetch("/server/listing/get?type=sale&limit=4");
+        const res = await fetch("/server/listing/get?type=sale&limit=3");
         const data = await res.json();
         setSaleListings(data);
       } catch (error) {
@@ -95,17 +95,17 @@ function Home() {
               <h2 className="text-2xl font-semibold text-slate-600">
                 Recent offers
               </h2>
+            </div>
+            <div className="flex flex-wrap gap-4">
+              {offerListings.map((listing) => (
+                <ListingItem listing={listing} key={listing._id} />
+              ))}
               <Link
                 className="text-sm text-blue-800 hover:underline"
                 to={"/search?offer=true"}
               >
                 Show more offers
               </Link>
-            </div>
-            <div className="flex flex-wrap gap-4">
-              {offerListings.map((listing) => (
-                <ListingItem listing={listing} key={listing._id} />
-              ))}
             </div>
           </div>
         )}
@@ -115,17 +115,17 @@ function Home() {
               <h2 className="text-2xl font-semibold text-slate-600">
                 Recent places for rent
               </h2>
+            </div>
+            <div className="flex flex-wrap gap-4">
+              {rentListings.map((listing) => (
+                <ListingItem listing={listing} key={listing._id} />
+              ))}
               <Link
                 className="text-sm text-blue-800 hover:underline"
                 to={"/search?type=rent"}
               >
                 Show more places for rent
               </Link>
-            </div>
-            <div className="flex flex-wrap gap-4">
-              {rentListings.map((listing) => (
-                <ListingItem listing={listing} key={listing._id} />
-              ))}
             </div>
           </div>
         )}
@@ -135,6 +135,11 @@ function Home() {
               <h2 className="text-2xl font-semibold text-slate-600">
                 Recent places for sale
               </h2>
+            </div>
+            <div className="flex flex-wrap gap-4">
+              {saleListings.map((listing) => (
+                <ListingItem listing={listing} key={listing._id} />
+              ))}
               <Link
                 className="text-sm text-blue-800 hover:underline"
                 to={"/search?type=sale"}
@@ -142,34 +147,43 @@ function Home() {
                 Show more places for sale
               </Link>
             </div>
-            <div className="flex flex-wrap gap-4">
-              {saleListings.map((listing) => (
-                <ListingItem listing={listing} key={listing._id} />
-              ))}
-            </div>
           </div>
         )}
       </div>
       <footer class="bg-gray-800 text-white py-5">
         <div class="max-w-4xl mx-auto text-center">
-          <p class="mb-2">&copy; 2024 RealState. All rights reserved.</p>
+          <p class="mb-4 text-sm">
+            &copy; 2024 RealState. All rights reserved.
+          </p>
           <p>
             Follow us on
-            <a href="#" class="text-blue-400 hover:underline">
-              {" "}
+            <a
+              href="#"
+              class="text-blue-400 hover:text-blue-500 hover:underline mx-1"
+            >
               Facebook
             </a>
             ,
-            <a href="#" class="text-blue-400 hover:underline">
-              {" "}
+            <a
+              href="#"
+              class="text-blue-400 hover:text-blue-500 hover:underline mx-1"
+            >
               Twitter
             </a>
             , and
-            <a href="#" class="text-blue-400 hover:underline">
-              {" "}
+            <a
+              href="#"
+              class="text-blue-400 hover:text-blue-500 hover:underline mx-1"
+            >
               Instagram
             </a>
-            .
+            <p>Email us at</p>
+            <a
+              href="mailto:info@realstate.com"
+              class="text-blue-400 hover:text-blue-500 hover:underline mx-1"
+            >
+              info@realstate.com
+            </a>
           </p>
         </div>
       </footer>
